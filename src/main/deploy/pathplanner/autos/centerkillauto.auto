@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7646141006567733,
+      "y": 4.441815740774339
+    },
+    "rotation": 117.55281157671777
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Centerkill1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "centerkill2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterKill3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
