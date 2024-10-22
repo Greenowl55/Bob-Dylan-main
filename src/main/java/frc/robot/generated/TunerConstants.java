@@ -37,8 +37,8 @@ public class TunerConstants {
 
     // Theoretical free speed (m/s) at 12v applied output;
     // This needs to be tuned to your individual robot  
-    //defult is 4.73 change back if needed
-    public static final double kSpeedAt12VoltsMps = 4.73;
+    // defult is 4.73 change back if needed (<--Krakens no FOC) (falcons no FOC is 5.03)
+    public static final double kSpeedAt12VoltsMps = 5.03;
 
     // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
     // This may need to be tuned to your individual robot
