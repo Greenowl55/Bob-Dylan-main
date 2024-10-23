@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Autos.Drive;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -39,6 +40,13 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private double m_lastSimTime;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
+
+    // phtonvision class
+    private       Vision  vision;
+
+
+    //Apriltag field layout
+    private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -100,9 +108,10 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
   {
     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
     // Taken from PhotonUtils.getDistanceToPose
-    Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-    return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
+    Pose3d speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+    return getpose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
   }
+
 
     /**
      * Get the yaw to aim at the speaker.
@@ -113,9 +122,10 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     {
         int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
         // Taken from PhotonUtils.getYawToPose()
-        Pose3d        speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-        Translation2d relativeTrl         = speakerAprilTagPose.toPose2d().relativeTo(getPose()).getTranslation();
-        return new Rotation2d(relativeTrl.getX(), relativeTrl.getY()).plus(swerveDrive.getOdometryHeading());
+        Pose3d        speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+        Object Pose2d;
+        Translation2d relativeTrl         = speakerAprilTagPose.toPose2d().relativeTo(this.getState().Pose);
+        return new Rotation2d(relativeTrl.getX(), relativeTrl.getY()).plus(SwerveDrivetrain.getOdometryHeading());
     }
 
     public Command getAutoPath(String pathName) {
