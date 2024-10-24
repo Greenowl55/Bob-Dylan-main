@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Autos.Drive;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -39,6 +40,13 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private double m_lastSimTime;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
+
+    // phtonvision class
+    private       Vision  vision;
+
+
+    //Apriltag field layout
+    private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -90,20 +98,19 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         return run(() -> this.setControl(requestSupplier.get()));
     }
 
-/*  TODO make vision work
 
-//      /**
-//    * Get the distance to the speaker.
-//    *
-//    * @return Distance to speaker in meters.
-//    */
-//   public double getDistanceToSpeaker()
-//   {
-//     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-//     // Taken from PhotonUtils.getDistanceToPose
-//     Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-//     return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
-//   }
+     /**
+   * Get the distance to the speaker.
+   *
+   * @return Distance to speaker in meters.
+   */
+  public double getDistanceToSpeaker()
+  {
+    int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
+    // Taken from PhotonUtils.getDistanceToPose
+    Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+    return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
+  }
 
 //     /**
 //      * Get the yaw to aim at the speaker.

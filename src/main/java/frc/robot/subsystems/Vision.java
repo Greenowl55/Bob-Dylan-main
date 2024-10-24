@@ -103,6 +103,10 @@ public class Vision
     }
   }
 
+  public Vision(Object currentPose2, Class<SwerveDrivetrain> class1) {
+    //TODO Auto-generated constructor stub
+  }
+
   /**
    * Calculates a target pose relative to an AprilTag on the field.
    *
