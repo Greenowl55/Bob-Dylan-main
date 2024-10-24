@@ -51,6 +51,7 @@ public class RobotContainer {
     private final Elevator_Drive m_elevator_Drive = new Elevator_Drive();
     private final Intake m_intake = new Intake();
     private final Shooter m_shooter = new Shooter();
+
    // private final AutoChooser AutoChooser = new AutoChooser();
 
 
@@ -93,7 +94,7 @@ SendableChooser<Command> autoChooser = new SendableChooser<Command>();
     ElevatorToggle.onTrue(new Elevator_Toggle(m_elevator_Tilt).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     final JoystickButton IntakeFeed = new JoystickButton(driver, XboxController.Button.kB.value);        
-    IntakeFeed.toggleOnTrue(new Intake_Feed( m_shooter, m_intake ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    IntakeFeed.toggleOnTrue(new Intake_Feed( m_shooter, m_intake, driver ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
                             
     final JoystickButton ShootFast = new JoystickButton(driver, XboxController.Button.kY.value);        
     ShootFast.onTrue(new Speaker( m_intake, m_shooter ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));

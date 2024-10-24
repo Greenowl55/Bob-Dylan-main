@@ -90,33 +90,36 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         return run(() -> this.setControl(requestSupplier.get()));
     }
 
+/*  TODO make vision work
 
-     /**
-   * Get the distance to the speaker.
-   *
-   * @return Distance to speaker in meters.
-   */
-  public double getDistanceToSpeaker()
-  {
-    int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-    // Taken from PhotonUtils.getDistanceToPose
-    Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-    return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
-  }
+//      /**
+//    * Get the distance to the speaker.
+//    *
+//    * @return Distance to speaker in meters.
+//    */
+//   public double getDistanceToSpeaker()
+//   {
+//     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
+//     // Taken from PhotonUtils.getDistanceToPose
+//     Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+//     return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
+//   }
 
-    /**
-     * Get the yaw to aim at the speaker.
-     *
-     * @return {@link Rotation2d} of which you need to achieve.
-     */
-    public Rotation2d getSpeakerYaw()
-    {
-        int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-        // Taken from PhotonUtils.getYawToPose()
-        Pose3d        speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-        Translation2d relativeTrl         = speakerAprilTagPose.toPose2d().relativeTo(getPose()).getTranslation();
-        return new Rotation2d(relativeTrl.getX(), relativeTrl.getY()).plus(swerveDrive.getOdometryHeading());
-    }
+//     /**
+//      * Get the yaw to aim at the speaker.
+//      *
+//      * @return {@link Rotation2d} of which you need to achieve.
+//      */
+//     public Rotation2d getSpeakerYaw()
+//     {
+//         int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
+//         // Taken from PhotonUtils.getYawToPose()
+//         Pose3d        speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+//         Translation2d relativeTrl         = speakerAprilTagPose.toPose2d().relativeTo(getPose()).getTranslation();
+//         return new Rotation2d(relativeTrl.getX(), relativeTrl.getY()).plus(swerveDrive.getOdometryHeading());
+//     }
+//  ^^^ Make vision work
+    
 
     public Command getAutoPath(String pathName) {
         return new PathPlannerAuto(pathName);
