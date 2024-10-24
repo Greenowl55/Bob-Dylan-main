@@ -99,18 +99,18 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     }
 
 
-     /**
-   * Get the distance to the speaker.
-   *
-   * @return Distance to speaker in meters.
-   */
-  public double getDistanceToSpeaker()
-  {
-    int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-    // Taken from PhotonUtils.getDistanceToPose
-    Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-    return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
-  }
+//      /**
+//    * Get the distance to the speaker.
+//    *
+//    * @return Distance to speaker in meters.
+//    */
+//   public double getDistanceToSpeaker()
+//   {
+//     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
+//     // Taken from PhotonUtils.getDistanceToPose
+//     Pose3d speakerAprilTagPose = AprilTagFieldLayout.getTagPose(allianceAprilTag).get();
+//     return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
+//   }
 
 //     /**
 //      * Get the yaw to aim at the speaker.
