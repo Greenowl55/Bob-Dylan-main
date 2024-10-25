@@ -96,10 +96,10 @@ SendableChooser<Command> autoChooser = new SendableChooser<Command>();
     final JoystickButton IntakeFeed = new JoystickButton(driver, XboxController.Button.kB.value);        
     IntakeFeed.toggleOnTrue(new Intake_Feed( m_shooter, m_intake, driver ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
                             
-    final JoystickButton ShootFast = new JoystickButton(driver, XboxController.Button.kY.value);        
+    final JoystickButton ShootFast = new JoystickButton(driver, XboxController.Button.kRightBumper.value);        
     ShootFast.onTrue(new Speaker( m_intake, m_shooter ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
                             
-    final JoystickButton ShootSlow = new JoystickButton(driver, XboxController.Button.kRightBumper.value);        
+    final JoystickButton ShootSlow = new JoystickButton(driver, XboxController.Button.kY.value);        
     ShootSlow.onTrue(new Amp( m_intake, m_shooter ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
                             
     final JoystickButton ElevatorUp = new JoystickButton(coDriver, 3);        
