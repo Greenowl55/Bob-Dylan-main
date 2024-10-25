@@ -13,16 +13,19 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Autos.*;
 import frc.robot.commands.*;
 import frc.robot.generated.TunerConstants;
@@ -52,11 +55,18 @@ public class RobotContainer {
     private final Intake m_intake = new Intake();
     private final Shooter m_shooter = new Shooter();
 
+    /* add the commands */
+    private final Elevator_Up m_Elevator_Up = new Elevator_Up(m_elevator_Drive);
+    private final Elevator_Down m_Elevator_Down = new Elevator_Down(m_elevator_Drive);
+    private final Climber_Up m_Climber_Up = new Climber_Up(m_elevator_Drive);
+    private final Climber_Down m_Climber_Down = new Climber_Down(m_elevator_Drive);
+
    // private final AutoChooser AutoChooser = new AutoChooser();
 
 
   /* add the joysticks */
-  private final Joystick coDriver = new Joystick(1);
+//private final Joystick coDriver = new Joystick(1);
+private final CommandJoystick coDriver = new CommandJoystick(1);
 private final XboxController driver = new XboxController(0);
 
 /* smartdashboard buttons */
@@ -66,6 +76,8 @@ SendableChooser<Command> autoChooser = new SendableChooser<Command>();
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
   private void configureBindings() {
+
+
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
         drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
@@ -102,17 +114,22 @@ SendableChooser<Command> autoChooser = new SendableChooser<Command>();
     final JoystickButton ShootSlow = new JoystickButton(driver, XboxController.Button.kRightBumper.value);        
     ShootSlow.onTrue(new Amp( m_intake, m_shooter ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
                             
-    final JoystickButton ElevatorUp = new JoystickButton(coDriver, 3);        
-    ElevatorUp.whileTrue(new Elevator_Up( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    // final JoystickButton ElevatorUp = new JoystickButton(coDriver, 3);        
+    // ElevatorUp.whileTrue(new Elevator_Up( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-    final JoystickButton ElevatorDown = new JoystickButton(coDriver, 4);
-    ElevatorDown.whileTrue(new Elevator_Down(m_elevator_Drive).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    // final JoystickButton ElevatorDown = new JoystickButton(coDriver, 4);
+    // ElevatorDown.whileTrue(new Elevator_Down(m_elevator_Drive).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-    final JoystickButton ClimberUp = new JoystickButton(coDriver, 1);        
-    ClimberUp.onTrue(new Climber_Up( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    // final JoystickButton ClimberUp = new JoystickButton(coDriver, 1);        
+    // ClimberUp.onTrue(new Climber_Up( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-    final JoystickButton ClimberDown = new JoystickButton(coDriver, 2);        
-    ClimberDown.onTrue(new Climber_Down( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+    coDriver.button(1).onTrue(m_Elevator_Up);
+    coDriver.button(2).onTrue(m_Elevator_Down);
+    coDriver.button(3).whileTrue(m_Climber_Up);
+    coDriver.button(4).whileTrue(m_Climber_Down);
+
+    // final JoystickButton ClimberDown = new JoystickButton(coDriver, 2);        
+    // ClimberDown.onTrue(new Climber_Down( m_elevator_Drive ).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
     }
 

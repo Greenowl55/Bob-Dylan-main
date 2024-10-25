@@ -59,13 +59,12 @@ public class Elevator_Down extends Command {
     @Override
     public void execute() {
         //double elevatorspeed = m_elevatorspeed.getAsDouble();
-            m_elevator_Drive.Elevatormove(-0.75);
+            m_elevator_Drive.goToSetpoint2(0);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_elevator_Drive.Elevatormove(0.0);
     }
 
     // Returns true when the command should end.
